@@ -1,0 +1,15 @@
+{
+  "hardDiskdataBase":{
+    "ip": "127.0.0.1",
+    "username": "root",
+    "password": "zzZZ4144670..",
+    "dataBaseName": "shucai_guochao"
+  },
+  "memoryDatabase": {
+    "ip": "127.0.0.1",
+    "port": 6379
+  },
+  "post_url": "http://127.0.0.1/uploadNewData.php",
+  "center": "(36.25, 120.73563333)",
+  "table_names": "['table_5218r', 'table_insitu', 'table_ygqrd', 'table_tyn', 'ais_data_history', 'ais_data']"
+}

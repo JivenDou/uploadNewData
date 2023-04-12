@@ -11,6 +11,7 @@ import os
 from tools.logging_config import upload_data as logger
 from tools.hard_disk_storage import HardDiskStorage
 from tools.logging_config import LOGGING_CONFIG
+from tools.configuration import Configuration
 from geopy.distance import geodesic
 import logging.config
 
@@ -20,34 +21,31 @@ logging.config.dictConfig(LOGGING_CONFIG)
 class XiaoGuanDaoUpLoadNewData(threading.Thread):
     def __init__(self):
         super(XiaoGuanDaoUpLoadNewData, self).__init__()
-        self.__config = {
-            'ip': '127.0.0.1',
-            'username': 'root',
-            'password': 'zzZZ4144670..',
-            'dataBaseName': 'shucai_xgd'
-        }
+        # 获取配置信息
+        config_info = Configuration().get_system_config()
+        self.__config = config_info['hardDiskdataBase']
         self._mysql = HardDiskStorage(self.__config)
-        self.post_url = 'http://127.0.0.1/uploadNewData.php'
+        self.post_url = config_info['post_url']
+        # 查询站名(ais需要特殊处理)--------------------
+        self.table_names = eval(config_info['table_names'])
         self.table_name = None
         # 平台坐标
-        self.__center = (36.25, 120.73563333)
+        self.__center = eval(config_info['center'])
 
     def run(self):
         while True:
             try:
-                # 查询站名(ais需要特殊处理)--------------------
-                table_names = ["table_5218r", "table_insitu", "table_ygqrd", "table_tyn", "ais_data_history", "ais_data"]
                 # 获取、发送、更新数据--------------------
                 data_null_flag = 0
                 # 遍历站名对应的历史表
-                for table_name in table_names:
+                for table_name in self.table_names:
                     self.table_name = table_name
                     sql = f"SELECT * FROM {self.table_name} WHERE is_send = 0 LIMIT 1"
                     data = self._mysql.execute_sql(sql)
                     # # 判空--------------------
                     if not data:
                         # 若为空则继续遍历下一个表
-                        if data_null_flag < len(table_names) - 1:
+                        if data_null_flag < len(self.table_names) - 1:
                             logger.info(f'{self.table_name}查询数据为0')
                             data_null_flag += 1
                             time.sleep(0.001)
