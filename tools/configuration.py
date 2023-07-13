@@ -8,7 +8,8 @@ class Configuration:
         # self.system_config = self.get_system_config()
         pass
 
-    def get_system_config(self):
+    @staticmethod
+    def get_system_config():
         """"读取配置"""
         if sys.platform == 'win32':
             # config_file_path = os.path.dirname(os.path.realpath(sys.argv[0])) + r'\config.json'

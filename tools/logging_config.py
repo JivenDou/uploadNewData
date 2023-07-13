@@ -23,7 +23,13 @@ LOGGING_CONFIG = dict(
             "handlers": ["console", "upload_data"],
             "propagate": True,
             "qualname": "upload_data.debug",
-        }
+        },
+        "upload_data2": {
+            "level": "DEBUG",
+            "handlers": ["console", "upload_data2"],
+            "propagate": True,
+            "qualname": "upload_data2.debug",
+        },
     },
     handlers={
         # 数据采集程序控制台输出handler
@@ -49,7 +55,16 @@ LOGGING_CONFIG = dict(
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
-        }
+        },
+        "upload_data2": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/upload_data2/upload_data2.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
     },
     formatters={
         # 自定义文件格式化器
@@ -62,3 +77,4 @@ LOGGING_CONFIG = dict(
 )
 general = logging.getLogger("general")
 upload_data = logging.getLogger("upload_data")
+upload_data2 = logging.getLogger("upload_data2")

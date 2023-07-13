@@ -1,0 +1,37 @@
+{
+  "hardDiskdataBase":{
+    "ip": "211.159.161.227",
+    "username": "zz",
+    "password": "zzZZ4144670..",
+    "dataBaseName": "hebei_db"
+  },
+  "memoryDatabase": {
+    "ip": "127.0.0.1",
+    "port": 6379
+  },
+  "save_frequency": {
+    "xiangyunwan_qx_tbl": 5,
+    "xiangyunwan_sz_tbl": 5,
+    "xiangyunwan_sw_tbl": 180
+  },
+  "upload_table_names": {
+    "xiangyunwan_qx_tbl": {
+      "windspeed": "c156", "winddirection": "c152",
+      "airtemp": "", "humdity": "", "airpressure": "",
+      "rain": "c149"
+    },
+    "xiangyunwan_sz_tbl": {
+      "Lati": "", "Longi": "", "Depth": "c17", "DO": "c12",
+      "Temp": "c13", "Chl": "c16", "Sali": "c14", "PH": "c15"
+    },
+    "xiangyunwan_sw_tbl": {
+      "flowV1": "c18","flowV2": "c19","flowV3": "c20","flowV4": "c21","flowV5": "c22","flowV6": "c23","flowV7": "c24",
+      "flowV8": "c25","flowV9": "c26","flowV10": "c27","flowV11": "c28","flowV12": "c29","flowV13": "c30","flowV14": "c31",
+      "flowV15": "c32","flowV16": "c33","flowV17": "c34","flowV18": "c35","flowV19": "c36","flowV20": "c37",
+      "flowD1": "c48","flowD2": "c49","flowD3": "c50","flowD4": "c51","flowD5": "c52","flowD6": "c53","flowD7": "c54",
+      "flowD8": "c55","flowD9": "c56","flowD10": "c57","flowD11": "c58","flowD12": "c59","flowD13": "c60","flowD14": "c61",
+      "flowD15": "c62","flowD16": "c63","flowD17": "c64","flowD18": "c65","flowD19": "c66","flowD20": "c67"
+    }
+  }
+
+}

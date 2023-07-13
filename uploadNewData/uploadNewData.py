@@ -2,7 +2,8 @@
 @File  : uploadNewData.py
 @Author: DJW
 @Date  : 2023-03-29 14:35:14
-@Desc  : 向云端上传数据
+@Desc  : 向云端上传数据，适用于本地数据库表和云端数据库表一致的情况
+         实现思路：通过遍历循环查询各个配置好的表的最后一条，发送到服务器uploadNewData.php接口，接口文件同样需要配置好才能上传数据
 """
 import requests
 import time
@@ -18,15 +19,15 @@ import logging.config
 logging.config.dictConfig(LOGGING_CONFIG)
 
 
-class XiaoGuanDaoUpLoadNewData(threading.Thread):
+class UpLoadNewData(threading.Thread):
     def __init__(self):
-        super(XiaoGuanDaoUpLoadNewData, self).__init__()
+        super(UpLoadNewData, self).__init__()
         # 获取配置信息
         config_info = Configuration().get_system_config()
         self.__config = config_info['hardDiskdataBase']
         self._mysql = HardDiskStorage(self.__config)
         self.post_url = config_info['post_url']
-        # 查询站名(ais需要特殊处理)--------------------
+        # 查询表名(ais需要特殊处理)--------------------
         self.table_names = eval(config_info['table_names'])
         self.table_name = None
         # 平台坐标
@@ -87,7 +88,7 @@ class XiaoGuanDaoUpLoadNewData(threading.Thread):
             data_id = data['id']
             # print(data)
             # verify=False避免ssl认证
-            ret = requests.post(url=self.post_url, json=data, verify=False)
+            ret = requests.post(url=self.post_url, json=data, verify=False, timeout=0.5)
             if ret.status_code == 200:
                 logger.info(f'**{self.table_name}** {ret.text} {ret.status_code}')
                 # 更新数据
@@ -134,5 +135,5 @@ if __name__ == '__main__':
             if not os.path.exists(dirname):
                 os.makedirs(dirname)
     # -----------------------------------------
-    upload_data = XiaoGuanDaoUpLoadNewData()
+    upload_data = UpLoadNewData()
     upload_data.run()
