@@ -88,7 +88,7 @@ class UpLoadNewData(threading.Thread):
             data_id = data['id']
             # print(data)
             # verify=False避免ssl认证
-            ret = requests.post(url=self.post_url, json=data, verify=False, timeout=0.5)
+            ret = requests.post(url=self.post_url, json=data, verify=False, timeout=2)
             if ret.status_code == 200:
                 logger.info(f'**{self.table_name}** {ret.text} {ret.status_code}')
                 # 更新数据

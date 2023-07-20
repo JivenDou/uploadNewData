@@ -119,7 +119,7 @@
     }else{ 
       $new_point_keys = $new_tables_info[$new_table_name];
       $old_point_values = array_values($points);
-      $sql = "INSERT INTO ".$new_table_name."(times,". join(',', $point_keys) .") VALUES('$times',". join(',', $point_values) .");";
+      $sql = "INSERT INTO ".$new_table_name."(times,". join(',', $new_point_keys) .") VALUES('$times',". join(',', $old_point_values) .");";
       // var_dump($sql);
       $result = mysqli_query($conn, $sql);
     }
